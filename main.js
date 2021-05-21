@@ -6,28 +6,39 @@ const FULL_HEART = '♥'
 
 // HTML DOM variables
 const modal = document.getElementById("modal");
-const heart = document.querySelectorAll("like");
+const modalMessage = document.getElementById("modal-message")
+const hearts = document.querySelectorAll(".like-glyph");
 
 // set modal to initial start hidden (and pass the learn test).
 modal.className = "hidden";
 
-// eventListeners
+// callback function
 
-heart.forEach( item => {
-item.addEventListener("click", (e) => {
-  mimicServerCall(); // will need to move function to top so it can be located by the event listener (or move below)
-  if (response == reject) {
+function heartCallBack(e) {
+  mimicServerCall() 
+    .then(function() {
+      if ( e.target.innerText === EMPTY_HEART) {
+      e.target.innerText = FULL_HEART;
+      e.target.className = "activated-heart";
+      } else {
+        e.target.innerText = EMPTY_HEART;
+        e.target.className = "";
+      }
+    })    
+    .catch(function(error) {
       modal.className = "";
+      modalMessage.innerText = error;
       setTimeout(function() {
         modal.className = "hidden"
       }, 3000);
-  } else {
-    e.target.innerText = `${FULL_HEART}`;
-    e.target.className = "activated-heart";
-  }  
-})
-});
+  }); 
+};
 
+// for loop to add to the eventListener to each of the hearts 
+
+for (const eachHeart of hearts) {
+  eachHeart.addEventListener("click", heartCallBack);
+}
 
 
 //------------------------------------------------------------------------------
