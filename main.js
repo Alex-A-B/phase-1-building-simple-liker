@@ -8,15 +8,25 @@ const FULL_HEART = '♥'
 const modal = document.getElementById("modal");
 const heart = document.querySelectorAll("like");
 
+// set modal to initial start hidden (and pass the learn test).
+modal.className = "hidden";
 
 // eventListeners
 
-document.addEventListener("DOMContentLoaded", (e) => {
-    modal.className = "hidden";
+heart.forEach( item => {
+item.addEventListener("click", (e) => {
+  mimicServerCall(); // will need to move function to top so it can be located by the event listener (or move below)
+  if (response == reject) {
+      modal.className = "";
+      setTimeout(function() {
+        modal.className = "hidden"
+      }, 3000);
+  } else {
+    e.target.innerText = `${FULL_HEART}`;
+    e.target.className = "activated-heart";
+  }  
+})
 });
-
-
-
 
 
 
@@ -36,21 +46,3 @@ function mimicServerCall(url="http://mimicServer.example.com", config={}) {
     }, 300);
   });
 }
-
-
-
-
-heart.forEach( item => {
-  item.addEventListener("click", (e) => {
-    mimicServerCall(); // will need to move function to top so it can be located by the event listener (or move below)
-    if (response == reject) {
-        modal.className = "";
-        setTimeout(function() {
-          modal.className = "hidden"
-        }, 3000);
-    } else {
-      e.target.innerText = `${FULL_HEART}`;
-      e.target.className = "activated-heart";
-    }  
-  })
-  });
