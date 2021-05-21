@@ -4,6 +4,16 @@ const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
 
+// HTML DOM variables
+const modal = document.getElementById("modal");
+
+
+
+// eventListeners
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    modal.hidden = true;
+});
 
 
 
